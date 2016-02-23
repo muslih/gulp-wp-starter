@@ -8,9 +8,20 @@ To watch file on development mode run `gulp watch`
 
 When the theme ready for production, specifying the `themeName` attribute in `package.json` then type `gulp production`, it will create new theme base on thmeName specified, and your theme is ready for production!
 
+#Features
+* Livereload
+* Js hint
+* Concat
+* Image optimizer
+* Notify
+* clean theme production
+* Error message handler
+
+
 #Todo
 * Add php files
 * Add bootstrap
 * Add jquery
 * Add uglify
 * Add concat
+* Add postcss
