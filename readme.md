@@ -20,6 +20,7 @@ When the theme ready for production, specifying the `themeName` attribute in `pa
 * CSSwring
 * Autoprefixr
 * Bootstrap
+* BlankSlate WordPress Theme
 
 
 #Todo
