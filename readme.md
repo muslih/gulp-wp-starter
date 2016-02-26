@@ -16,12 +16,13 @@ When the theme ready for production, specifying the `themeName` attribute in `pa
 * Notify
 * clean theme production
 * Error message handler
+* PostCSS
+* CSSwring
+* Autoprefixr
+* Bootstrap
 
 
 #Todo
 * Add php files
-* Add bootstrap
 * Add jquery
 * Add uglify
-* Add concat
-* Add postcss

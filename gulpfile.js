@@ -1,24 +1,28 @@
 require('es6-promise').polyfill()
 
-var gulp        = require('gulp'),
-    sass        = require('gulp-sass'),
-    jshint      = require('gulp-jshint'),
-    concat      = require('gulp-concat'),
-    imagemin    = require('gulp-imagemin'),
-    plumber     = require('gulp-plumber'),
-    notify      = require('gulp-notify'),
-    livereload  = require('gulp-livereload'),
-    fs          = require('node-fs'),
-    fse         = require('fs-extra'),
-    json        = require('json-file');
+var gulp          = require('gulp'),
+    postcss       = require('gulp-postcss'),
+    sass          = require('gulp-sass'),
+    csswring      = require('csswring');
+    autoprefixer  = require('autoprefixer');
+    jshint        = require('gulp-jshint'),
+    concat        = require('gulp-concat'),
+    imagemin      = require('gulp-imagemin'),
+    plumber       = require('gulp-plumber'),
+    notify        = require('gulp-notify'),
+    livereload    = require('gulp-livereload'),
+    fs            = require('node-fs'),
+    fse           = require('fs-extra'),
+    json          = require('json-file');
  
 
 var themeName = json.read('./package.json').get('themeName');
 var themeDir = '../' + themeName;
 
 var config = {
-    sourceDir: './src',
-    destDir: './theme-boilerplate',
+  bootstrapDir: './bower_components/bootstrap-sass',
+  sourceDir: './src',
+  destDir: './theme-boilerplate',
 };
 
 var plumberErrorHandler = { errorHandler: notify.onError({
@@ -28,9 +32,18 @@ var plumberErrorHandler = { errorHandler: notify.onError({
 };
 
 gulp.task('sass',function(){
+  // postcss processors
+  var processors = [
+    csswring,
+    autoprefixer({browsers:['last 2 version']})
+  ];
+
   gulp.src(config.sourceDir+'/css/*.scss')
     .pipe(plumber(plumberErrorHandler))
-    .pipe(sass())
+    .pipe(sass({
+      includePaths: [config.bootstrapDir + '/assets/stylesheets'],
+    }))
+    .pipe(postcss(processors))
     .pipe(gulp.dest(config.destDir+'/css'))
     .pipe(livereload());
 });
