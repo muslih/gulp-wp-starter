@@ -36,10 +36,10 @@ gulp.task('sass',function(){
 });
 
 gulp.task('js',function(){
-  gulp.src(config.sourceDir+'/js/*.scss')
+  gulp.src(config.sourceDir+'/js/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('fail'))
-    .pipe(concat('theme.js'))
+    .pipe(concat('main.js'))
     .pipe(gulp.dest(config.destDir+'/js'))
 })
 
@@ -51,7 +51,7 @@ gulp.task('img',function(){
     }))
 })
 
-gulp.task('init', function() {
+gulp.task('production', function() {
   fs.mkdirSync(themeDir, 765, true);
   fse.copySync('theme-boilerplate', themeDir + '/');
  

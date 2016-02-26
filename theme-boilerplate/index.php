@@ -10,9 +10,9 @@
  
 <body>
  
-<h1>hello from gulp automation tool</h1>
+<h1>GULP WP STARTER - Automating wordpress development workflow</h1>
  
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/theme.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/main.js"></script>
  
 </body>
  

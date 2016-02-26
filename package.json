@@ -1,17 +1,13 @@
 {
   "name": "gulp-wp-starter",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
+  "description": "Automating wordpress development workflow",
+  "main": "gulpfile.js",
+  "dependencies": {
     "fs-extra": "^0.26.5",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
+    "gulp-imagemin": "^2.4.0",
     "gulp-jshint": "^2.0.0",
     "gulp-livereload": "^3.8.1",
     "gulp-notify": "^2.2.0",
@@ -21,5 +17,10 @@
     "json-file": "^0.1.0",
     "node-fs": "^0.1.7"
   },
-  "themeName": "wpStarter"
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Muslih",
+  "license": "ISC"
 }
