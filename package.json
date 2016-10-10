@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Automating wordpress development workflow",
   "main": "gulpfile.js",
-  "dependencies": {
+  "private": true,
+  "devDependencies": {
     "fs-extra": "^0.26.5",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
@@ -15,17 +16,19 @@
     "gulp-sass": "^2.2.0",
     "jshint": "^2.9.1",
     "json-file": "^0.1.0",
-    "node-fs": "^0.1.7"
-  },
-  "devDependencies": {
+    "node-fs": "^0.1.7",
     "autoprefixer": "^6.3.3",
     "csswring": "^4.2.1",
-    "gulp-postcss": "^6.1.0"
+    "gulp-postcss": "^6.1.0",
+    "gulp-uglify": "^2.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Muslih",
   "license": "ISC",
-  "themeName": "wpStarter"
+  "themeName": "wpStarter",
+  "dependencies": {
+    "gulp-concat": "^2.6.0"
+  }
 }

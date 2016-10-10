@@ -4,11 +4,12 @@ var gulp          = require('gulp'),
     postcss       = require('gulp-postcss'),
     sass          = require('gulp-sass'),
     csswring      = require('csswring');
-    autoprefixer  = require('autoprefixer');
-    jshint        = require('gulp-jshint'),
-    concat        = require('gulp-concat'),
+    autoprefixer  = require('autoprefixer'),
     imagemin      = require('gulp-imagemin'),
     plumber       = require('gulp-plumber'),
+    jshint        = require('gulp-jshint'),
+    concat        = require('gulp-concat'),
+    uglify        = require('gulp-uglify'),
     notify        = require('gulp-notify'),
     livereload    = require('gulp-livereload'),
     fs            = require('node-fs'),
@@ -50,9 +51,11 @@ gulp.task('sass',function(){
 
 gulp.task('js',function(){
   gulp.src(config.sourceDir+'/js/*.js')
+    .pipe(plumber(plumberErrorHandler))
     .pipe(jshint())
-    .pipe(jshint.reporter('fail'))
     .pipe(concat('main.js'))
+    .pipe(uglify())
+    .pipe(jshint.reporter('fail'))
     .pipe(gulp.dest(config.destDir+'/js'))
 })
 
