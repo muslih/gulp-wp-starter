@@ -3,13 +3,13 @@ require('es6-promise').polyfill()
 var gulp          = require('gulp'),
     postcss       = require('gulp-postcss'),
     sass          = require('gulp-sass'),
-    csswring      = require('csswring');
+    csswring      = require('csswring'),
     autoprefixer  = require('autoprefixer'),
-    imagemin      = require('gulp-imagemin'),
-    plumber       = require('gulp-plumber'),
     jshint        = require('gulp-jshint'),
     concat        = require('gulp-concat'),
     uglify        = require('gulp-uglify'),
+    imagemin      = require('gulp-imagemin'),
+    plumber       = require('gulp-plumber'),
     notify        = require('gulp-notify'),
     livereload    = require('gulp-livereload'),
     fs            = require('node-fs'),
@@ -22,6 +22,7 @@ var themeDir = '../' + themeName;
 
 var config = {
   bootstrapDir: './bower_components/bootstrap-sass',
+  jqueryDir: './bower_components/jquery',
   sourceDir: './src',
   destDir: './theme-boilerplate',
 };
@@ -49,14 +50,24 @@ gulp.task('sass',function(){
     .pipe(livereload());
 });
 
+
 gulp.task('js',function(){
-  gulp.src(config.sourceDir+'/js/*.js')
-    .pipe(plumber(plumberErrorHandler))
-    .pipe(jshint())
+  return gulp.src([
+    // config.jqueryDir+'/dist/jquery.min.js',
+    config.bootstrapDir+'/assets/javascripts/bootstrap.min.js',
+    config.sourceDir+'/js/**/**.js',
+    '!'+config.sourceDir+'/js/dist/main.js'
+    ])
     .pipe(concat('main.js'))
-    .pipe(uglify())
-    .pipe(jshint.reporter('fail'))
-    .pipe(gulp.dest(config.destDir+'/js'))
+    .pipe(gulp.dest(config.sourceDir+'/js/dist'))
+    .pipe(livereload());
+})
+
+gulp.task('minjs', function(){
+  return gulp.src(config.sourceDir+'/js/dist/main.js')
+  .pipe(uglify())
+  .pipe(gulp.dest(config.destDir+'/js'))
+  .pipe(livereload());
 })
 
 gulp.task('img',function(){
@@ -65,6 +76,11 @@ gulp.task('img',function(){
       optimizationLevel:7,
       progressive: true
     }))
+})
+
+gulp.task('template',function(){
+  gulp.src(config.destDir+'/**')
+  .pipe(livereload());
 })
 
 gulp.task('production', function() {
@@ -76,9 +92,11 @@ gulp.task('production', function() {
 gulp.task('watch',function(){
   livereload.listen();
   gulp.watch(config.sourceDir+'/css/*.scss',['sass']);
-  gulp.watch(config.sourceDir+'/js/*.js',['js']);
+  gulp.watch([config.sourceDir+'/js/**/**.js','!'+config.sourceDir+'/js/dist'],['js']);
+  gulp.watch(config.sourceDir+'/js/dist/main.js',['minjs']);
   gulp.watch('img/src/*.{png,jpg,gif}',['img']);
+  gulp.watch(config.destDir+'/**',['template']);
 })
 
-gulp.task('default',['sass','js','img','watch'])
+gulp.task('default',['sass','js','img','template','watch'])
 
